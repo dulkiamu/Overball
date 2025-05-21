@@ -9,10 +9,7 @@ public class Graphic
 {
     
     
-    public Graphic()
-    {
-        
-    }
+    
 
     
 }
