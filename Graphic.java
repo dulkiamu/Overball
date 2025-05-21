@@ -8,9 +8,7 @@
 public class Graphic
 {
     
-    /**
-     * Konstruktor für Objekte der Klasse Graphic
-     */
+    
     public Graphic()
     {
         
