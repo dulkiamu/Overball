@@ -8,7 +8,7 @@
 public class Graphic
 {
     
-    
+    String Hallo;
     
 
     
