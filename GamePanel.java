@@ -19,14 +19,15 @@ public class GamePanel extends JPanel implements Runnable
     {
         //erstellt ein Fenster von dieser Klasse
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.black);
+        this.setBackground(Color.pink);
         // Drawings werden in offscreen painting buffer gemacht
         this.setDoubleBuffered(true); 
     }
     
     public void startGameThread()
     {
-        
+        gameThread = new Thread(this);
+        gameThread.start();
     }
     
     @Override 
