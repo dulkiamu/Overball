@@ -33,7 +33,20 @@ public class GamePanel extends JPanel implements Runnable
     @Override 
     public void run()
     {
-        
+        while(gameThread != null) //wiederholt das Prozess
+            // 1) Update position
+            update();
+            // 2) Draw the screen 
+            repaint();
     }
 
 }
+public void update() {
+}
+public void paintComponent(Graphics g) {
+    super.paintComponent(g); // super = subclass von JPanel
+Graphics2D g2  = (Graphics2D)g; //Graphics2D erweitert class Graphics für mehr kontrolle über color managment
+g2.setColor(Color.white);
+g2.fillRect(100, 100, tileSize, tileSize); // (x, y, weidth, height)
+g2.dispose();
+    }
