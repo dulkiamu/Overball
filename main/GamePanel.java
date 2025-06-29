@@ -1,14 +1,17 @@
+package main;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
+
+import entity.Player;
 public class GamePanel extends JPanel implements Runnable
 {
     //SCREEN Settings
-    final int originalTileSize = 16; //16x16 tile
-    final int scale = 3; //16x16 bleibt aber sieht 48x48 auf dem screen aus
-    final int tileSize = originalTileSize * scale;
+    public final int originalTileSize = 32; //32x32 tile
+    final int scale = 2; //16x16 bleibt aber sieht 64x64 auf dem screen aus
+    public final int tileSize = originalTileSize * scale;
     final int maxScreenCol = 23; // blöcke vertical
     final int maxScreenRow = 12; // blöcke horizontal
     final int screenWidth = tileSize * maxScreenCol; // 1104pixel länge vom Screen
@@ -21,6 +24,7 @@ public class GamePanel extends JPanel implements Runnable
     //erstellt ein Thread und gleichzeitig startet die Uhr/Zeit. Programm wird laufen bis man es stoppt. Hilft das Prozzes zu wiederholen(FPS)    
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
+    Player player = new Player(this,keyH);
 
     //Spieler position am Anfang
     int playerX = 100;
@@ -69,25 +73,13 @@ public class GamePanel extends JPanel implements Runnable
     }
 
     public void update() {
-        if(keyH.upPressed == true){
-            playerY = playerY - playerSpeed;
-        }
-        else if(keyH.downPressed == true ){
-            playerY = playerY + playerSpeed;
-        }
-        else if(keyH.leftPressed == true ){
-            playerX = playerX - playerSpeed;
-        }
-        else if(keyH.rightPressed == true ){
-            playerX = playerX + playerSpeed;
-        }
+        player.update();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g); // super = subclass von JPanel
         Graphics2D g2  = (Graphics2D)g; //Graphics2D erweitert class Graphics für mehr kontrolle über color managment
-        g2.setColor(Color.white);
-        g2.fillRect(playerX, playerY, tileSize, tileSize); // (x, y, weidth, height)
+        player.draw(g2);
         g2.dispose();
     }
 }

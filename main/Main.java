@@ -1,3 +1,4 @@
+package main; 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
@@ -5,6 +6,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
+
 public class Main
 {
     public static void main(String[] args)

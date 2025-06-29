@@ -1,7 +1,7 @@
-  
+package main;   
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
-
+import entity.Player;
 public class KeyHandler implements KeyListener  // KeyListener für Keyboard events
 {
     public boolean upPressed, downPressed, rightPressed, leftPressed;
