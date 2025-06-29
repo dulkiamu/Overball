@@ -13,8 +13,11 @@ public class GamePanel extends JPanel implements Runnable
     final int maxScreenRow = 12; // blöcke horizontal
     final int screenWidth = tileSize * maxScreenCol; // 1104pixel länge vom Screen
     final int screenHeight = tileSize * maxScreenRow; // 576pixel Höhe vom Screen
+    
     //FPS
     int FPS = 60;
+    
+    
     //erstellt ein Thread und gleichzeitig startet die Uhr/Zeit. Programm wird laufen bis man es stoppt. Hilft das Prozzes zu wiederholen(FPS)    
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
@@ -46,24 +49,21 @@ public class GamePanel extends JPanel implements Runnable
     {
 
         double drawInterval = 1000000000/FPS; // 0.01666 seconds
-        double nextDrawTime = System.nanoTime() + drawInterval;
+        double delta = 0;
+        long lastTime = System.nanoTime();
+        long currentTime;
+        
         while(gameThread != null){ //wiederholt das Prozess
-            // 1) Update position
-            update();
-            // 2) Draw the screen 
-            repaint();
-            try {
-                double remainingTime = nextDrawTime - System.nanoTime();
-                remainingTime = remainingTime/1000000; // convert to milliseconds 
-                if(remainingTime < 0){
-                    remainingTime = 0;
-                }
-                Thread.sleep((long) remainingTime);
-                
-                nextDrawTime = nextDrawTime + drawInterval;
-            }
-            catch (InterruptedException e){
-                e.printStackTrace();
+            
+            currentTime = System.nanoTime();
+            
+            delta += (currentTime - lastTime) / drawInterval;
+            
+            lastTime = currentTime;
+            if(delta >= 1) {
+                update();
+                repaint();
+                delta--;
             }
         }
     }
