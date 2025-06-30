@@ -11,22 +11,22 @@ import java.io.IOException;
 import entity.Player;
 import entity.Player2;
 import main.KeyHandler2;
-
+import tile.TileManager;
 public class GamePanel extends JPanel implements Runnable
 {
     //SCREEN Settings
     public final int originalTileSize = 16; //32x32 tile
     final int scale = 4; //32x32 bleibt aber sieht 64x64 auf dem screen aus
     public final int tileSize = originalTileSize * scale;
-    final int maxScreenCol = 23; // blöcke vertical
-    final int maxScreenRow = 12; // blöcke horizontal
-    final int screenWidth = tileSize * maxScreenCol; // 1104pixel länge vom Screen
-    final int screenHeight = tileSize * maxScreenRow; // 576pixel Höhe vom Screen
+    public final int maxScreenCol = 23; // blöcke vertical
+    public final int maxScreenRow = 12; // blöcke horizontal
+    public final int screenWidth = tileSize * maxScreenCol; // 1104pixel länge vom Screen
+    public final int screenHeight = tileSize * maxScreenRow; // 576pixel Höhe vom Screen
     
     //FPS
     int FPS = 60;
     
-    
+    TileManager tileM = new TileManager(this);
     //erstellt ein Thread und gleichzeitig startet die Uhr/Zeit. Programm wird laufen bis man es stoppt. Hilft das Prozzes zu wiederholen(FPS)    
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
@@ -87,19 +87,15 @@ public class GamePanel extends JPanel implements Runnable
     
     public void paintComponent(Graphics g) {
         super.paintComponent(g); // super = subclass von JPanel
-        Graphics2D g2  = (Graphics2D)g; //Graphics2D erweitert class Graphics für mehr kontrolle über color managment
+        Graphics2D g2  = (Graphics2D)g; //Graphics2D erweitert class Graphics für mehr kontrolle über color managmen
+        tileM.draw(g2);
         player.draw(g2);
         player2.draw(g2);
         g2.dispose();
     }
     
     
-    /*public void paintComponent(Graphics g) {
-        super.paintComponent(g); // super = subclass von JPanel
-        Graphics2D g2  = (Graphics2D)g; //Graphics2D erweitert class Graphics für mehr kontrolle über color managment
-        player.draw(g2);
-        g2.dispose();
-    }*/
+    
     
     
 }
