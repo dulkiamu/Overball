@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
+
 public class Player extends Entity
 {
     GamePanel gp;
@@ -23,13 +24,15 @@ public class Player extends Entity
         setDefaultvalues();
         getPlayerImage();
     }
+    
     public void setDefaultvalues()
     {
-        x = 100;
-        y = 100;
+        x = 220;
+        y = 220;
         speed = 9;
         direction = "up";
     }
+    
     public void getPlayerImage(){
         
         try{
@@ -48,6 +51,7 @@ public class Player extends Entity
             e.printStackTrace();
         }
     }
+    
     public void update()
     {
         if(keyH.upPressed == true){
@@ -67,6 +71,7 @@ public class Player extends Entity
             x = x + speed;
         }
     }
+    
     public void draw(Graphics2D g2)
     {
         //g2.setColor(Color.white);

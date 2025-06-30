@@ -5,10 +5,12 @@ import entity.Player;
 public class KeyHandler implements KeyListener  // KeyListener für Keyboard events
 {
     public boolean upPressed, downPressed, rightPressed, leftPressed;
+    
     @Override 
     public void keyTyped(KeyEvent e){
         
     }
+    
     @Override 
     public void keyPressed(KeyEvent e){
         int code = e.getKeyCode(); // gibt die nummer von pressed keys zurück
