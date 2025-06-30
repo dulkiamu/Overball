@@ -10,12 +10,13 @@ import java.io.File;
 import java.io.IOException;
 import entity.Player;
 import entity.Player2;
+import main.KeyHandler2;
 
 public class GamePanel extends JPanel implements Runnable
 {
     //SCREEN Settings
     public final int originalTileSize = 16; //32x32 tile
-    final int scale = 2; //32x32 bleibt aber sieht 64x64 auf dem screen aus
+    final int scale = 4; //32x32 bleibt aber sieht 64x64 auf dem screen aus
     public final int tileSize = originalTileSize * scale;
     final int maxScreenCol = 23; // blöcke vertical
     final int maxScreenRow = 12; // blöcke horizontal
@@ -30,7 +31,8 @@ public class GamePanel extends JPanel implements Runnable
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
     Player player = new Player(this,keyH);
-    KeyHandler keyH2 = new KeyHandler();
+    
+    KeyHandler2 keyH2 = new KeyHandler2();
     Player2 player2 = new Player2(this,keyH2);
 
     
@@ -70,7 +72,7 @@ public class GamePanel extends JPanel implements Runnable
             lastTime = currentTime;
             if(delta >= 1) {
                 update();
-                update2();
+                
                 repaint();
                 delta--;
             }
@@ -79,23 +81,25 @@ public class GamePanel extends JPanel implements Runnable
 
     public void update() {
         player.update();
-    }
-    
-    public void update2() {
         player2.update();
     }
+    
     
     public void paintComponent(Graphics g) {
         super.paintComponent(g); // super = subclass von JPanel
         Graphics2D g2  = (Graphics2D)g; //Graphics2D erweitert class Graphics für mehr kontrolle über color managment
         player.draw(g2);
-        g2.dispose();
-    }
-    
-    public void paintComponent2(Graphics g) {
-        super.paintComponent(g); // super = subclass von JPanel
-        Graphics2D g2  = (Graphics2D)g; //Graphics2D erweitert class Graphics für mehr kontrolle über color managment
         player2.draw(g2);
         g2.dispose();
     }
+    
+    
+    /*public void paintComponent(Graphics g) {
+        super.paintComponent(g); // super = subclass von JPanel
+        Graphics2D g2  = (Graphics2D)g; //Graphics2D erweitert class Graphics für mehr kontrolle über color managment
+        player.draw(g2);
+        g2.dispose();
+    }*/
+    
+    
 }

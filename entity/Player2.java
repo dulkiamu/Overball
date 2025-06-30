@@ -1,6 +1,6 @@
 package entity;
 import main.GamePanel;
-import main.KeyHandler;
+import main.KeyHandler2;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Color;
@@ -12,10 +12,10 @@ import java.io.IOException;
 public class Player2 extends Entity
 {
     GamePanel gp;
-    KeyHandler keyH;
+    KeyHandler2 keyH;
     
     
-    public Player2(GamePanel gp, KeyHandler keyH)
+    public Player2(GamePanel gp, KeyHandler2 keyH)
     {
         this.gp = gp;
         this.keyH = keyH; 
@@ -27,7 +27,7 @@ public class Player2 extends Entity
     
     public void setDefaultvalues()
     {
-        x = 220;
+        x = 400;
         y = 220;
         speed = 8;
         direction = "up";
@@ -42,7 +42,7 @@ public class Player2 extends Entity
             left2 = ImageIO.read(getClass().getResourceAsStream("/player/player2_left_2.png"));
             right1 = ImageIO.read(getClass().getResourceAsStream("/player/player2_right_1.png"));
             right2 = ImageIO.read(getClass().getResourceAsStream("/player/player2_right_2.png"));
-            System.out.println("Erfolg Bild");
+            //System.out.println("Erfolg Bild");
         
         }
         catch(IOException e) {
@@ -111,6 +111,6 @@ public class Player2 extends Entity
                 }
                 break;    
         }
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, x, y, gp.tileSize*4, gp.tileSize*4, null);
     }
 }

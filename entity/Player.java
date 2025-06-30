@@ -37,14 +37,13 @@ public class Player extends Entity
         
         try{
             up1 = ImageIO.read(getClass().getResourceAsStream("/player/up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/up_2-1.png.png"));
             down1 = ImageIO.read(getClass().getResourceAsStream("/player/down_1.png"));
             down2 = ImageIO.read(getClass().getResourceAsStream("/player/down_2.png"));
             left1 = ImageIO.read(getClass().getResourceAsStream("/player/left_1.png"));
             left2 = ImageIO.read(getClass().getResourceAsStream("/player/left_2.png"));
             right1 = ImageIO.read(getClass().getResourceAsStream("/player/right_1.png"));
             right2 = ImageIO.read(getClass().getResourceAsStream("/player/right_2.png"));
-            System.out.println("Erfolg Bild");
+            //System.out.println("Erfolg Bild");
         
         }
         catch(IOException e) {
@@ -117,7 +116,7 @@ public class Player extends Entity
                 }
                 break;    
         }
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, x, y, gp.tileSize*4, gp.tileSize*4, null);
     }
 }
 
