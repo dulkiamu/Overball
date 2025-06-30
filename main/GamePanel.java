@@ -4,13 +4,17 @@ import java.awt.Graphics2D;
 import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JPanel;
-
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.IOException;
 import entity.Player;
+
 public class GamePanel extends JPanel implements Runnable
 {
     //SCREEN Settings
     public final int originalTileSize = 32; //32x32 tile
-    final int scale = 2; //16x16 bleibt aber sieht 64x64 auf dem screen aus
+    final int scale = 2; //32x32 bleibt aber sieht 64x64 auf dem screen aus
     public final int tileSize = originalTileSize * scale;
     final int maxScreenCol = 23; // blöcke vertical
     final int maxScreenRow = 12; // blöcke horizontal
@@ -25,6 +29,7 @@ public class GamePanel extends JPanel implements Runnable
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
     Player player = new Player(this,keyH);
+    
 
     //Spieler position am Anfang
     int playerX = 100;
@@ -75,11 +80,13 @@ public class GamePanel extends JPanel implements Runnable
     public void update() {
         player.update();
     }
-
+    
     public void paintComponent(Graphics g) {
         super.paintComponent(g); // super = subclass von JPanel
         Graphics2D g2  = (Graphics2D)g; //Graphics2D erweitert class Graphics für mehr kontrolle über color managment
         player.draw(g2);
         g2.dispose();
     }
+    
+    
 }
