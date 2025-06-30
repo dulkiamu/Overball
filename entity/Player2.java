@@ -9,13 +9,13 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 
-public class Player extends Entity
+public class Player2 extends Entity
 {
     GamePanel gp;
     KeyHandler keyH;
     
     
-    public Player(GamePanel gp, KeyHandler keyH)
+    public Player2(GamePanel gp, KeyHandler keyH)
     {
         this.gp = gp;
         this.keyH = keyH; 
@@ -36,14 +36,12 @@ public class Player extends Entity
     public void getPlayerImage(){
         
         try{
-            up1 = ImageIO.read(getClass().getResourceAsStream("/player/up_1.png"));
-            up2 = ImageIO.read(getClass().getResourceAsStream("/player/up_2-1.png.png"));
-            down1 = ImageIO.read(getClass().getResourceAsStream("/player/down_1.png"));
-            down2 = ImageIO.read(getClass().getResourceAsStream("/player/down_2.png"));
-            left1 = ImageIO.read(getClass().getResourceAsStream("/player/left_1.png"));
-            left2 = ImageIO.read(getClass().getResourceAsStream("/player/left_2.png"));
-            right1 = ImageIO.read(getClass().getResourceAsStream("/player/right_1.png"));
-            right2 = ImageIO.read(getClass().getResourceAsStream("/player/right_2.png"));
+            up1 = ImageIO.read(getClass().getResourceAsStream("/player/player2_up_1.png"));
+            down1 = ImageIO.read(getClass().getResourceAsStream("/player/player2_down_1.png"));
+            left1 = ImageIO.read(getClass().getResourceAsStream("/player/player2_left_1.png"));
+            left2 = ImageIO.read(getClass().getResourceAsStream("/player/player2_left_2.png"));
+            right1 = ImageIO.read(getClass().getResourceAsStream("/player/player2_right_1.png"));
+            right2 = ImageIO.read(getClass().getResourceAsStream("/player/player2_right_2.png"));
             System.out.println("Erfolg Bild");
         
         }
@@ -94,12 +92,8 @@ public class Player extends Entity
                 image = up1;
                 break;
             case "down":
-                if(playerNum == 1){
-                    image = down1;
-                }
-                if(playerNum == 2){
-                    image = down2;
-                }
+                image = down1;
+                break;
             case "left":
                 if(playerNum == 1){
                     image = left1;
@@ -120,4 +114,3 @@ public class Player extends Entity
         g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
     }
 }
-
