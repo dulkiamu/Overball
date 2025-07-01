@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class Ball {
     GamePanel gp;
-
+    Scoreboard scoreboard;
     public double x, y; // Position
     public double velocityX, velocityY; // Geschwindigkeit
 
@@ -23,8 +23,9 @@ public class Ball {
     // Bild für den Ball
     BufferedImage ballImage;
 
-    public Ball(GamePanel gp) {
+    public Ball(GamePanel gp, Scoreboard scoreboard) {
         this.gp = gp;
+        this.scoreboard = scoreboard;
         setDefaultValues();
         getBallImage();
     }
@@ -73,8 +74,16 @@ public class Ball {
         // Collision mit Boden
         if (y >= gp.screenHeight - size) {
             y = gp.screenHeight - size;
-            velocityY = -Math.abs(velocityY) * bounceDamping;
-            normalizeHorizontalSpeed(); // Horizontale Geschwindigkeit konstant halten
+
+            // 🟨 Add point depending on which side of the screen the ball landed
+            if (x + size / 2 < gp.screenWidth / 2) {
+                scoreboard.player1Scores(); // Ball landed on Player 1's side → Player 2 scores
+            } else {
+                scoreboard.player2Scores(); // Ball landed on Player 2's side → Player 1 scores
+            }
+
+            // Reset the ball position and velocity
+            reset();
         }
 
         // Collision mit Decke
@@ -218,5 +227,4 @@ public class Ball {
         }
     }
 }
-
 

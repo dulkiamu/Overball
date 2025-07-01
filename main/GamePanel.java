@@ -13,7 +13,8 @@ import entity.Player2;
 import main.KeyHandler2;
 import tile.TileManager;
 import entity.Ball;
-
+import entity.Scoreboard;
+import entity.ScoreList;
 public class GamePanel extends JPanel implements Runnable
 {
     //SCREEN Settings
@@ -39,7 +40,10 @@ public class GamePanel extends JPanel implements Runnable
     KeyHandler2 keyH2 = new KeyHandler2();
     Player2 player2 = new Player2(this,keyH2);
 
-    Ball ball = new Ball(this);
+    ScoreList scoreList = new ScoreList();
+    Scoreboard scoreboard = new Scoreboard(scoreList);
+
+    Ball ball = new Ball(this, scoreboard);
 
     public GamePanel()
     {
@@ -105,8 +109,8 @@ public class GamePanel extends JPanel implements Runnable
         ball.checkPlayerCollision(player); // Kollision prüfen
         ball.checkPlayerCollision(player2); // Kollision prüfen
     }
-    
-       public void paintComponent(Graphics g) {
+
+    public void paintComponent(Graphics g) {
         super.paintComponent(g); // super = subclass von JPanel
         Graphics2D g2  = (Graphics2D)g; //Graphics2D erweitert class Graphics für mehr kontrolle über color managment
         if (backgroundImage != null){
@@ -119,6 +123,5 @@ public class GamePanel extends JPanel implements Runnable
         g2.dispose(); // Grafik-Ressourcen freigeben
     }
 
-    
 
 }
