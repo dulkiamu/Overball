@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 
+
 public class Main
 {
     public static void main(String[] args)
@@ -29,5 +30,6 @@ public class Main
         window.setVisible(true); // macht das Fenster sichtbar
         
         gp.startGameThread(); // Spiel-Loop starten
+        
     }
 }

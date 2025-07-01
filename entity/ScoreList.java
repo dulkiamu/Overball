@@ -1,6 +1,5 @@
 package entity;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,5 +12,17 @@ public class ScoreList {
 
     public List<String> getCompletedSets() {
         return completedSets;
+    }
+
+    public void printSavedSets() {
+
+        List<String> finishedSets = getCompletedSets();
+
+        System.out.println("Completed Sets:");
+        for (String set : finishedSets) {
+            System.out.println(set);
+         
+        }
+
     }
 }

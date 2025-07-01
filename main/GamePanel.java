@@ -15,6 +15,7 @@ import tile.TileManager;
 import entity.Ball;
 import entity.Scoreboard;
 import entity.ScoreList;
+import java.util.List;
 public class GamePanel extends JPanel implements Runnable
 {
     //SCREEN Settings
@@ -122,6 +123,5 @@ public class GamePanel extends JPanel implements Runnable
         ball.draw(g2); // Ball zeichnen
         g2.dispose(); // Grafik-Ressourcen freigeben
     }
-
 
 }
