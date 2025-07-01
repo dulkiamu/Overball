@@ -26,7 +26,7 @@ public class TileManager
         tile = new Tile[10];
         mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow];
         getTileImage();
-        loadMap("/map/map01.txt");
+        //loadMap("/map/map01.txt");
 
     }
 
@@ -39,6 +39,7 @@ public class TileManager
 
             tile[1]=new Tile();
             tile[1].image = ImageIO.read(getClass().getResourceAsStream("/tile/waves.png"));
+            
 
             tile[2]=new Tile();
             tile[2].image = ImageIO.read(getClass().getResourceAsStream("/tile/sand.png"));
@@ -47,7 +48,12 @@ public class TileManager
             tile[3].image = ImageIO.read(getClass().getResourceAsStream("/tile/clouds.png"));
 
             tile[4]=new Tile();
-            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tile/netz.png"));
+            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/tile/netzbottom.png"));
+            tile[4].collision = true;
+            
+            tile[5]=new Tile();
+            tile[5].image = ImageIO.read(getClass().getResourceAsStream("/tile/netztop.png"));
+            tile[5].collision = true;
             // System.out.println("Erfolg Bild");
 
         }
@@ -56,7 +62,7 @@ public class TileManager
         }
     }
 
-    public void loadMap(String filePath) {
+    /*public void loadMap(String filePath) {
         try {
             InputStream is = getClass().getResourceAsStream(filePath);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -82,28 +88,14 @@ public class TileManager
             
 
         }
-    }
+    }*/
 
     public void draw(Graphics2D g2)
     {
-        int col = 0;
-        int row = 0;
-        int x = 0;
-        int y = 0;
-
-        while(col < gp.maxScreenCol && row < gp.maxScreenRow){
-            int tileNum = mapTileNum[col][row];
-            g2.drawImage(tile[tileNum].image,x, y, gp.tileSize, gp.tileSize, null);
-            col++;
-            x += gp.tileSize;
-
-            if(col == gp.maxScreenCol)
-            {
-                col = 0;
-                x = 0;
-                row++;
-                y += gp.tileSize;
-            }
-        }
+        g2.drawImage(tile[4].image, 704, 576, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(tile[4].image, 704, 640, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(tile[4].image, 704, 704, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(tile[4].image, 704, 512, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(tile[5].image, 704, 448, gp.tileSize, gp.tileSize, null);
     }
 }

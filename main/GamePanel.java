@@ -107,7 +107,7 @@ public class GamePanel extends JPanel implements Runnable
         if (backgroundImage != null){
             g2.drawImage(backgroundImage, 0, 0, screenWidth, screenHeight, null);
         }
-        //tileM.draw(g2);
+        tileM.draw(g2);
         player.draw(g2);
         player2.draw(g2);
         g2.dispose();
