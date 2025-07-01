@@ -29,7 +29,7 @@ public class Player extends Entity
     {
         x = 220;
         y = 220;
-        speed = 8;
+        speed = 10;
         direction = "up";
     }
     
@@ -53,22 +53,34 @@ public class Player extends Entity
     
     public void update()
     {
+        int newX = x;
+        int newY = y;
+        
         if(keyH.upPressed == true){
             direction = "up";
-            y = y - speed;
+            newY = y - speed;
         }
         else if(keyH.downPressed == true ){
             direction = "down";
-            y = y + speed;
+            newY = y + speed;
         }
         else if(keyH.leftPressed == true ){
             direction = "left";
-            x = x - speed;
+            newX = x - speed;
         }
         else if(keyH.rightPressed == true ){
             direction = "right";
-            x = x + speed;
+            newX = x + speed;
         }
+        
+        if (newX >= 0 && newX <= (gp.screenWidth-200) - gp.tileSize){
+            x = newX;
+        }
+        if (newY >= 0 && newY <= (gp.screenHeight-150) - gp.tileSize){
+            y = newY;
+        }
+        
+        
         
         playerCounter++;
         if(playerCounter > 16){
