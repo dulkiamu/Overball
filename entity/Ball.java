@@ -10,13 +10,11 @@ import java.io.IOException;
 public class Ball {
     GamePanel gp;
 
-    // Position und Geschwindigkeit
-    public double x, y;
-    public double velocityX, velocityY;
+    public double x, y; // Position
+    public double velocityX, velocityY; // Geschwindigkeit
 
-    // Ball-Eigenschaften
     public int size = 128; // Ball-Größe
-    public double gravity = 0.3; // Reduzierte Gravitation
+    public double gravity = 0.3; // Gravitation
     public double bounceDamping = 0.8; // Dämpfung beim Aufprall
     public double friction = 1.0; // Kein Luftwiderstand für konstante Geschwindigkeit
     public double maxSpeed = 9.0; // Maximale Geschwindigkeit
@@ -51,45 +49,41 @@ public class Ball {
 
     public void update() {
         // Gravitation anwenden
-        velocityY += gravity;
+        velocityY = velocityY + gravity;
 
         // Position aktualisieren
-        x += velocityX;
-        y += velocityY;
+        x = x + velocityX;
+        y = y + velocityY;
 
         // Geschwindigkeit kontrollieren - konstante horizontale Geschwindigkeit
         normalizeSpeed();
 
-        // Verhindere, dass Ball zu langsam wird und "klebt"
-        if (Math.abs(velocityX) < 0.1) velocityX = 0;
-        if (Math.abs(velocityY) < 0.1 && y >= gp.screenHeight - size - 5) velocityY = 0;
-
-        // Kollision mit Wänden (links und rechts)
+        // Collision mit Wänden (links und rechts)
         if (x <= 0) {
             x = 0;
-            velocityX = Math.abs(velocityX); // Immer positive Geschwindigkeit nach rechts
+            velocityX = Math.abs(velocityX); // positive Geschwindigkeit nach rechts
             normalizeHorizontalSpeed();
         }
         if (x >= gp.screenWidth - size) {
             x = gp.screenWidth - size;
-            velocityX = -Math.abs(velocityX); // Immer negative Geschwindigkeit nach links
+            velocityX = -Math.abs(velocityX); // negative Geschwindigkeit nach links
             normalizeHorizontalSpeed();
         }
 
-        // Kollision mit Boden
+        // Collision mit Boden
         if (y >= gp.screenHeight - size) {
             y = gp.screenHeight - size;
             velocityY = -Math.abs(velocityY) * bounceDamping;
             normalizeHorizontalSpeed(); // Horizontale Geschwindigkeit konstant halten
         }
 
-        // Kollision mit Decke
+        // Collision mit Decke
         if (y <= 0) {
             y = 0;
             velocityY = Math.abs(velocityY) * bounceDamping;
         }
 
-        // Kollision mit Netz (in der Mitte bei x=704)
+        // Collision mit Netz (bei x=704)
         checkNetCollision();
     }
 
@@ -116,14 +110,14 @@ public class Ball {
 
     // Kollision mit Spieler prüfen - verbesserte Version
     public void checkPlayerCollision(Player player) {
-        checkPlayerCollisionGeneric(player.x, player.y, gp.tileSize * 4, gp.tileSize * 4);
+        checkPlayerCollisionMethode(player.x, player.y, gp.tileSize * 4, gp.tileSize * 4);
     }
 
     public void checkPlayerCollision(Player2 player) {
-        checkPlayerCollisionGeneric(player.x, player.y, gp.tileSize * 4, gp.tileSize * 4);
+        checkPlayerCollisionMethode(player.x, player.y, gp.tileSize * 4, gp.tileSize * 4);
     }
 
-    private void checkPlayerCollisionGeneric(int playerX, int playerY, int playerWidth, int playerHeight) {
+    private void checkPlayerCollisionMethode(int playerX, int playerY, int playerWidth, int playerHeight) {
         // Ball-Grenzen
         double ballLeft = x;
         double ballRight = x + size;
@@ -152,7 +146,7 @@ public class Ball {
             double overlapX = Math.min(ballRight - playerLeft, playerRight - ballLeft);
             double overlapY = Math.min(ballBottom - playerTop, playerBottom - ballTop);
 
-            // Bestimme Kollisionsrichtung basierend auf kleinerer Überlappung
+            // Bestimme Collisionrichtung basierend auf kleinerer Überlappung
             if (overlapX < overlapY) {
                 // Horizontale Kollision
                 if (ballCenterX < playerCenterX) {
@@ -164,8 +158,8 @@ public class Ball {
                     x = playerRight + 2;
                     velocityX = Math.abs(velocityX) * 1.2; // Nach rechts mit mehr Kraft
                 }
-                // Leichter Aufwärtsimpuls
-                velocityY -= 1;
+                // Leichter simpuls nach oben
+                velocityY = velocityY - 1;
             } else {
                 // Vertikale Kollision
                 if (ballCenterY < playerCenterY) {
@@ -192,7 +186,6 @@ public class Ball {
     public void draw(Graphics2D g2) {
 
         g2.drawImage(ballImage, (int)x, (int)y, size, size, null);
-
     }
 
     // Ball zurücksetzen (für Punkte system später)

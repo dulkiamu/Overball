@@ -60,6 +60,7 @@ public class Player extends Entity
         int newX = x;
         int newY = y;
 
+        // Horizontal
         if(keyH.leftPressed == true ){
             direction = "left";
             newX = x - speed;
@@ -70,10 +71,10 @@ public class Player extends Entity
         }
 
         if(keyH.upPressed == true){
-            jump(); // Sprung ausführen
+            jump(); 
         }
 
-        if (newX >= 0 && newX <= (gp.screenWidth-200) - gp.tileSize && newX <= 500){
+        if (newX >= -50 && newX <= 500){
             x = newX;
         }
         
@@ -97,7 +98,7 @@ public class Player extends Entity
         //g2.fillRect(x, y, gp.tileSize, gp.tileSize); // (x, y, weidth, height)
         BufferedImage image = null;
         if (!onGround) {
-            // In der Luft - verwende Sprung-Sprite
+            // In der Luft 
             if (velocityY < 0) {
                 // Springt nach oben
                 image = up1;

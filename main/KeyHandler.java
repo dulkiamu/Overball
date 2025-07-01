@@ -13,7 +13,7 @@ public class KeyHandler implements KeyListener  // KeyListener für Keyboard eve
     
     @Override 
     public void keyPressed(KeyEvent e){
-        int code = e.getKeyCode(); // gibt die nummer von pressed keys zurück
+        int code = e.getKeyCode(); // gibt den code von pressed keys zurück
         
         if(code == KeyEvent.VK_W){
             upPressed = true;

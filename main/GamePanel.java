@@ -13,16 +13,17 @@ import entity.Player2;
 import main.KeyHandler2;
 import tile.TileManager;
 import entity.Ball;
+
 public class GamePanel extends JPanel implements Runnable
 {
     //SCREEN Settings
-    public final int originalTileSize = 16; //16x16 tile
-    final int scale = 4; //32x32 bleibt aber sieht 64x64 auf dem screen aus
-    public final int tileSize = originalTileSize * scale; 
+    public final int originalTileSize = 16; // 16x16 tile-Größe
+    final int scale = 4; //16x4 = 64 Pixel
+    public final int tileSize = originalTileSize * scale; // 64 Pixel pro Tile
     public final int maxScreenCol = 23; // blöcke horizontal
     public final int maxScreenRow = 12; // blöcke vertical
-    public final int screenWidth = tileSize * maxScreenCol; // 1104pixel länge vom Screen
-    public final int screenHeight = tileSize * maxScreenRow; // 576pixel Höhe vom Screen
+    public final int screenWidth = tileSize * maxScreenCol; // 1472 pixel länge vom Screen
+    public final int screenHeight = tileSize * maxScreenRow; // 768 pixel Höhe vom Screen
 
     //FPS
     int FPS = 60;
@@ -76,7 +77,7 @@ public class GamePanel extends JPanel implements Runnable
     public void run()
     {
 
-        double drawInterval = 1000000000/FPS; // 0.01666 seconds
+        double drawInterval = 1000000000/FPS; // 0.01666 seconds, Zeit zwischen Frames
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -90,7 +91,6 @@ public class GamePanel extends JPanel implements Runnable
             lastTime = currentTime;
             if(delta >= 1) {
                 update();
-
                 repaint();
                 delta--;
             }
@@ -98,28 +98,25 @@ public class GamePanel extends JPanel implements Runnable
     }
 
     public void update() {
-        player.update();
-        player2.update();
-        ball.update();
+        player.update(); // Spieler 1 aktualisieren
+        player2.update(); // Spieler 2 aktualisieren
+        ball.update(); // Ball aktualisieren
 
-        ball.checkPlayerCollision(player);
-        ball.checkPlayerCollision(player2);
+        ball.checkPlayerCollision(player); // Kollision prüfen
+        ball.checkPlayerCollision(player2); // Kollision prüfen
     }
     
-    
-    
-
        public void paintComponent(Graphics g) {
         super.paintComponent(g); // super = subclass von JPanel
-        Graphics2D g2  = (Graphics2D)g; //Graphics2D erweitert class Graphics für mehr kontrolle über color managmen
+        Graphics2D g2  = (Graphics2D)g; //Graphics2D erweitert class Graphics für mehr kontrolle über color managment
         if (backgroundImage != null){
             g2.drawImage(backgroundImage, 0, 0, screenWidth, screenHeight, null);
         }
-        tileM.draw(g2);
-        player.draw(g2);
-        player2.draw(g2);
-        ball.draw(g2);
-        g2.dispose();
+        tileM.draw(g2); // netz zeichnen
+        player.draw(g2); // Spieler1 zeichnen
+        player2.draw(g2); // Spieler2 zeichnen
+        ball.draw(g2); // Ball zeichnen
+        g2.dispose(); // Grafik-Ressourcen freigeben
     }
 
     

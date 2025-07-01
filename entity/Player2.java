@@ -74,7 +74,7 @@ public class Player2 extends Entity
             jump(); // Sprung ausführen
         }
         
-        if (newX >= 0 && newX <= (gp.screenWidth-180) - gp.tileSize && newX >= 711){
+        if (newX >= 0 && newX <= (gp.screenWidth-140) - gp.tileSize && newX >= 711){
             x = newX;
         }
         
