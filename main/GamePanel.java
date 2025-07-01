@@ -12,6 +12,7 @@ import entity.Player;
 import entity.Player2;
 import main.KeyHandler2;
 import tile.TileManager;
+import entity.Ball;
 public class GamePanel extends JPanel implements Runnable
 {
     //SCREEN Settings
@@ -22,22 +23,23 @@ public class GamePanel extends JPanel implements Runnable
     public final int maxScreenRow = 12; // blöcke vertical
     public final int screenWidth = tileSize * maxScreenCol; // 1104pixel länge vom Screen
     public final int screenHeight = tileSize * maxScreenRow; // 576pixel Höhe vom Screen
-    
+
     //FPS
     int FPS = 60;
-    
+
     BufferedImage backgroundImage;
-    
+
     TileManager tileM = new TileManager(this);
     //erstellt ein Thread und gleichzeitig startet die Uhr/Zeit. Programm wird laufen bis man es stoppt. Hilft das Prozzes zu wiederholen(FPS)    
     Thread gameThread;
     KeyHandler keyH = new KeyHandler();
     Player player = new Player(this,keyH);
-    
+
     KeyHandler2 keyH2 = new KeyHandler2();
     Player2 player2 = new Player2(this,keyH2);
 
-    
+    Ball ball = new Ball(this);
+
     public GamePanel()
     {
         //erstellt ein Fenster von dieser Klasse
@@ -48,10 +50,10 @@ public class GamePanel extends JPanel implements Runnable
         this.addKeyListener(keyH);
         this.addKeyListener(keyH2);
         this.setFocusable(true); // this GamePanel ist focused um key Input zu bekommen
-        
+
         loadBackgroundImage();
     }
-    
+
     public void loadBackgroundImage()
     {
         try{
@@ -78,17 +80,17 @@ public class GamePanel extends JPanel implements Runnable
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
-        
+
         while(gameThread != null){ //wiederholt das Prozess
-            
+
             currentTime = System.nanoTime();
-            
+
             delta += (currentTime - lastTime) / drawInterval;
-            
+
             lastTime = currentTime;
             if(delta >= 1) {
                 update();
-                
+
                 repaint();
                 delta--;
             }
@@ -98,10 +100,16 @@ public class GamePanel extends JPanel implements Runnable
     public void update() {
         player.update();
         player2.update();
+        ball.update();
+
+        ball.checkPlayerCollision(player);
+        ball.checkPlayerCollision(player2);
     }
     
     
-    public void paintComponent(Graphics g) {
+    
+
+       public void paintComponent(Graphics g) {
         super.paintComponent(g); // super = subclass von JPanel
         Graphics2D g2  = (Graphics2D)g; //Graphics2D erweitert class Graphics für mehr kontrolle über color managmen
         if (backgroundImage != null){
@@ -110,11 +118,10 @@ public class GamePanel extends JPanel implements Runnable
         tileM.draw(g2);
         player.draw(g2);
         player2.draw(g2);
+        ball.draw(g2);
         g2.dispose();
     }
+
     
-    
-    
-    
-    
+
 }

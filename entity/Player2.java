@@ -28,9 +28,15 @@ public class Player2 extends Entity
     public void setDefaultvalues()
     {
         x = 1200;
-        y = 220;
+        y = 100;
         speed = 10;
         direction = "up";
+        
+        gravity = 0.6; // Gravitation
+        jumpPower = -15.0; // Sprungkraft
+        maxFallSpeed = 10.0; // maximale Fallgeschwindigkeit
+        velocityY = 0.0;
+        onGround = false;
     }
     
     public void getPlayerImage(){
@@ -53,17 +59,9 @@ public class Player2 extends Entity
     public void update()
     {
         int newX = x;
-        int newY = y;
         
-        if(keyH.upPressed == true){
-            direction = "up";
-            newY = y - speed;
-        }
-        else if(keyH.downPressed == true ){
-            direction = "down";
-            newY = y + speed;
-        }
-        else if(keyH.leftPressed == true ){
+        
+        if(keyH.leftPressed == true ){
             direction = "left";
             newX = x - speed;
         }
@@ -72,12 +70,15 @@ public class Player2 extends Entity
             newX = x + speed;
         }
         
+        if(keyH.upPressed == true){
+            jump(); // Sprung ausführen
+        }
+        
         if (newX >= 0 && newX <= (gp.screenWidth-180) - gp.tileSize && newX >= 711){
             x = newX;
         }
-        if (newY >= 0 && newY <= (gp.screenHeight-150) - gp.tileSize){
-            y = newY;
-        }
+        
+        applyGravity(gp.screenHeight, gp.tileSize*4);
         
         playerCounter++;
         if(playerCounter > 16){
@@ -96,7 +97,19 @@ public class Player2 extends Entity
         //g2.setColor(Color.white);
         //g2.fillRect(x, y, gp.tileSize, gp.tileSize); // (x, y, weidth, height)
         BufferedImage image = null;
-        switch(direction)
+        
+        if (!onGround) {
+            // In der Luft - verwende Sprung-Sprite
+            if (velocityY < 0) {
+                // Springt nach oben
+                image = up1;
+            } else {
+                // Fällt nach unten
+                image = down1;
+            }
+        }
+        else{
+            switch(direction)
         {
             case "up":
                 image = up1;
@@ -121,6 +134,8 @@ public class Player2 extends Entity
                 }
                 break;    
         }
+        }
+        
         g2.drawImage(image, x, y, gp.tileSize*4, gp.tileSize*4, null);
     }
 }

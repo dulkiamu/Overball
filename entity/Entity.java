@@ -14,7 +14,53 @@ public class Entity // Klass für variablen in Player class
     public int spriteNum = 1;
     public int playerCounter = 0;
     public int playerNum = 1;
-    public Rectangle solidArea;
-    public boolean collisionOn = false;
+    
+    public double velocityY = 0.0;      // Vertikale Geschwindigkeit
+    public double gravity = 0.5;        // Gravitationsstärke
+    public double jumpPower = -12.0;    // Sprungkraft (negativ = nach oben)
+    public double maxFallSpeed = 8.0;   // Maximale Fallgeschwindigkeit
+    public boolean onGround = false;    // Ist der Spieler auf dem Boden?
+    public boolean canJump = true;      // Kann der Spieler springen?
+    
+    public int groundLevel = 0;         
+    
+    public void applyGravity(int screenHeight, int spriteHeight) {
+        // Bodenhöhe
+        int ground = screenHeight - spriteHeight;
+        
+        // Gravitation anwenden (nur wenn nicht auf dem Boden)
+        if (y < ground) {
+            velocityY += gravity;
+            
+            // Maximale Fallgeschwindigkeit begrenzen
+            if (velocityY > maxFallSpeed) {
+                velocityY = maxFallSpeed;
+            }
+            
+            onGround = false;
+        }
+        
+        // Neue Y-Position berechnen
+        int newY = (int) (y + velocityY);
+        
+        // Boden-Kollision prüfen
+        if (newY >= ground) {
+            newY = ground;
+            velocityY = 0;
+            onGround = true;
+            canJump = true; // Spieler kann wieder springen
+        }
+        
+        y = newY;
+    }
+    
+    
+    public void jump() {
+        if (onGround && canJump) {
+            velocityY = jumpPower;
+            onGround = false;
+            canJump = false; // Verhindert Doppelsprung
+        }
+    }
 }
 
