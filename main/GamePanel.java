@@ -26,6 +26,8 @@ public class GamePanel extends JPanel implements Runnable
     //FPS
     int FPS = 60;
     
+    BufferedImage backgroundImage;
+    
     TileManager tileM = new TileManager(this);
     //erstellt ein Thread und gleichzeitig startet die Uhr/Zeit. Programm wird laufen bis man es stoppt. Hilft das Prozzes zu wiederholen(FPS)    
     Thread gameThread;
@@ -46,6 +48,20 @@ public class GamePanel extends JPanel implements Runnable
         this.addKeyListener(keyH);
         this.addKeyListener(keyH2);
         this.setFocusable(true); // this GamePanel ist focused um key Input zu bekommen
+        
+        loadBackgroundImage();
+    }
+    
+    public void loadBackgroundImage()
+    {
+        try{
+            backgroundImage = ImageIO.read(getClass().getResourceAsStream("/background/background.image.png"));
+            System.out.println("Erfolg Hinter_Bild");
+        }
+        catch(IOException e){
+            System.out.println("Kein Erfolg Hinter_Bild");
+            e.printStackTrace();
+        }
     }
 
     public void startGameThread()
@@ -88,7 +104,10 @@ public class GamePanel extends JPanel implements Runnable
     public void paintComponent(Graphics g) {
         super.paintComponent(g); // super = subclass von JPanel
         Graphics2D g2  = (Graphics2D)g; //Graphics2D erweitert class Graphics für mehr kontrolle über color managmen
-        tileM.draw(g2);
+        if (backgroundImage != null){
+            g2.drawImage(backgroundImage, 0, 0, screenWidth, screenHeight, null);
+        }
+        //tileM.draw(g2);
         player.draw(g2);
         player2.draw(g2);
         g2.dispose();
