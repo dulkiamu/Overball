@@ -73,10 +73,10 @@ public class Player extends Entity
             newX = x + speed;
         }
         
-        if (newX >= 0 && newX <= (gp.screenWidth-200) - gp.tileSize){
+        if (newX >= 0 && newX <= (gp.screenWidth-200) - gp.tileSize && newX <= 500){
             x = newX;
         }
-        if (newY >= 0 && newY <= (gp.screenHeight-150) - gp.tileSize){
+        if (newY >= 0 && newY <= (gp.screenHeight-150) - gp.tileSize && newX <= 540){
             y = newY;
         }
         
