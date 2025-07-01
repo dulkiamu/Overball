@@ -77,9 +77,9 @@ public class Ball {
 
             // 🟨 Add point depending on which side of the screen the ball landed
             if (x + size / 2 < gp.screenWidth / 2) {
-                scoreboard.player1Scores(); // Ball landed on Player 1's side → Player 2 scores
-            } else {
                 scoreboard.player2Scores(); // Ball landed on Player 2's side → Player 1 scores
+            } else {
+                scoreboard.player1Scores(); // Ball landed on Player 1's side → Player 2 scores
             }
 
             // Reset the ball position and velocity
