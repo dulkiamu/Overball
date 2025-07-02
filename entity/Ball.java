@@ -41,7 +41,7 @@ public class Ball {
     public void getBallImage() {
         try {
             ballImage = ImageIO.read(getClass().getResourceAsStream("/ball/DerBall.png"));
-            System.out.println("Ball-Bild geladen (oder Fallback zu Kreis)");
+            // System.out.println("Ball-Bild geladen (oder Fallback zu Kreis)");
         } catch (Exception e) {
             System.out.println("Kein Ball-Bild gefunden, verwende Kreis");
             ballImage = null;

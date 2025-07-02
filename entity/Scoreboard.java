@@ -10,19 +10,19 @@ public class Scoreboard {
 
     private final int MAX_POINTS = 10;
 
-    // Constructor takes ScoreList instance
+    // Konstruktor nimmt ScoreList instance
     public Scoreboard(ScoreList scoreList) {
         this.scoreList = scoreList;
     }
 
-    // Player 1 scores a point
+    // Player 1 scores 
     public void player1Scores() {
         player1Score++;
         System.out.println("🟦 Player 1 scores! Total: " + player1Score);
         checkSetEnd();
     }
 
-    // Player 2 scores a point
+    // Player 2 scores 
     public void player2Scores() {
         player2Score++;
         System.out.println("🟥 Player 2 scores! Total: " + player2Score);
@@ -45,7 +45,7 @@ public class Scoreboard {
         }
     }
 
-    // Getters for current scores
+    // Aktuelle score
     public int getPlayer1Score() {
         return player1Score;
     }
